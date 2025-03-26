@@ -1,7 +1,9 @@
 import React, {useState} from "react";
-import { Button } from "../ui/button";
+import { useNavigate } from 'react-router-dom';
 import TextField from "@/components/atoms/TextField";
 import axios from "@/lib/axios";
+import ButtonPrimay from "@/components/atoms/Button";
+import {showToast} from "@/utils/alert";
 
 const RegisterForm = () => {
     const [form, setForm] = useState({
@@ -9,6 +11,7 @@ const RegisterForm = () => {
         email: '',
         password: '',
     });
+    const navigate = useNavigate();
     const clearForm = () => {
         setForm({
             name: '',
@@ -23,10 +26,14 @@ const RegisterForm = () => {
         e.preventDefault();
         try {
             const response = await axios.post("/users/", form);
-            console.log('Usuario creado:', response.data);
+            showToast('success', response.data.message);
             clearForm();
-        } catch (err) {
-            console.error('Error al crear usuario:', err);
+            setTimeout(() => {
+                navigate('/');
+            }, 1500); // pequeño delay para que el toast se muestre
+        } catch (err:any) {
+            const message = err?.response?.data?.error || 'Error al registrar usuario';
+            showToast('error', message);
         }
     };
 
@@ -36,6 +43,7 @@ const RegisterForm = () => {
                 id="name"
                 label="Nombre"
                 name="name"
+                required
                 value={form.name}
                 onChange={handleChange}
             />
@@ -57,9 +65,7 @@ const RegisterForm = () => {
                 onChange={handleChange}
                 required
             />
-            <Button type="submit" className="w-full">
-                Ingresar
-            </Button>
+            <ButtonPrimay bgColor="bg-primary" type="submit">Ingresar</ButtonPrimay>
         </form>
     );
 }
