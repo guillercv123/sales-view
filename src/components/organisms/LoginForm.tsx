@@ -1,9 +1,9 @@
 import React from "react"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import {Link, useNavigate } from "react-router-dom";
 import {Input} from "@/components/ui/input";
 import {Checkbox} from "@/components/ui/checkbox";
+import {Link, useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
 
@@ -18,11 +18,12 @@ export default function LoginForm() {
             <form onSubmit={handleSubmit} >
                 <div className="mb-4">
                     <div className="mb-2 block">
-                        <Label htmlFor="email">Usuario</Label>
+                        <Label htmlFor="Username">Usuario</Label>
                     </div>
                     <Input
                         id="Username"
                         type="text"
+
                         required
                         className="form-control form-rounded-xl"
                     />

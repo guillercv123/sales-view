@@ -21,13 +21,13 @@ const Register = () => {
                             <FullLogo />
                         </div>
                         <p className="text-sm text-center text-dark my-3">
-                            Sign Up on MatDash
+                            Registrarte
                         </p>
                         <RegisterForm />
                         <div className="flex gap-2 text-base text-ld font-medium mt-6 items-center justify-center">
-                            <p>Already have an Account?</p>
-                            <Link to="/auth/login" className="text-primary text-sm font-medium">
-                                Sign in
+                            <p>Ya tienes una cuenta?</p>
+                            <Link to="/" className="text-primary text-sm font-medium">
+                                Ingresar
                             </Link>
                         </div>
                     </div>

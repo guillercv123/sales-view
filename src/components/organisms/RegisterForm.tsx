@@ -1,56 +1,67 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import {Label} from "@/components/ui/label";
-import {Input} from "@/components/ui/input";
+import React, {useState} from "react";
 import { Button } from "../ui/button";
+import TextField from "@/components/atoms/TextField";
+import axios from "@/lib/axios";
 
 const RegisterForm = () => {
-    const navigate = useNavigate();
-    const handleSubmit = (event:React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        console.log(event);
-        navigate("/");
-    }
+    const [form, setForm] = useState({
+        name: '',
+        email: '',
+        password: '',
+    });
+    const clearForm = () => {
+        setForm({
+            name: '',
+            email: '',
+            password: '',
+        });
+    };
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post("/users/", form);
+            console.log('Usuario creado:', response.data);
+            clearForm();
+        } catch (err) {
+            console.error('Error al crear usuario:', err);
+        }
+    };
 
     return (
-        <form onSubmit={handleSubmit} >
-            <div className="mb-4">
-                <div className="mb-2 block">
-                    <Label htmlFor="name">Nombre</Label>
-                </div>
-                <Input
-                    id="name"
-                    type="text"
-                    required
-                    className="form-control form-rounded-xl"
-                />
-            </div>
-            <div className="mb-4">
-                <div className="mb-2 block">
-                    <Label htmlFor="email">Email Address</Label>
-                </div>
-                <Input
-                    id="emadd"
-                    type="email"
-                    required
-                    className="form-control form-rounded-xl"
-                />
-            </div>
-            <div className="mb-6">
-                <div className="mb-2 block">
-                    <Label htmlFor="password">Contraseña</Label>
-                </div>
-                <Input
-                    id="userpwd"
-                    type="password"
-                    required
-                    className="form-control form-rounded-xl"
-                />
-            </div>
-            <Button color={'primary'} type="submit" className="w-full">Sign Up</Button>
-
+        <form onSubmit={handleSubmit}>
+            <TextField
+                id="name"
+                label="Nombre"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+            />
+            <TextField
+                id="email"
+                label="Email Address"
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={handleChange}
+                required
+            />
+            <TextField
+                id="password"
+                label="Contraseña"
+                name="password"
+                type="password"
+                value={form.password}
+                onChange={handleChange}
+                required
+            />
+            <Button type="submit" className="w-full">
+                Ingresar
+            </Button>
         </form>
-    )
+    );
 }
 
 export default RegisterForm;
