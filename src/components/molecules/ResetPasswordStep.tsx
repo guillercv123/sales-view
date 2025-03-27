@@ -23,9 +23,9 @@ const ResetPasswordStep: React.FC<ResetPasswordStepProps> = ({ password, setPass
                     required
                 />
                 <TextField
-                    id="password"
+                    id="passwordConfirm"
                     type="password"
-                    name="password"
+                    name="passwordConfirm"
                     label="Repetir contraseña"
                     value={passwordConfirm}
                     onChange={(e) => setPasswordConfirm(e.target.value)}
