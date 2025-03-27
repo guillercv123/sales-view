@@ -10,7 +10,7 @@ const instance = axios.create({
 });
 instance.interceptors.request.use(
     (config) => {
-        loadingManager.set(true); // muestra el loading
+        loadingManager.set(true);
         return config;
     },
     (error) => {
@@ -21,7 +21,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
     (response) => {
-        loadingManager.set(false); // oculta el loading
+        loadingManager.set(false);
         return response;
     },
     (error) => {
