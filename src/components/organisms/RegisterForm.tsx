@@ -50,7 +50,7 @@ const RegisterForm = () => {
             />
             <TextField
                 id="email"
-                label="Email Address"
+                label="Correo electrónico"
                 name="email"
                 type="email"
                 value={form.email}
