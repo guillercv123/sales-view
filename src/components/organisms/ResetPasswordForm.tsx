@@ -4,12 +4,13 @@ import { Card, CardContent } from "../ui/card";
 import {Button} from "@/components/ui/button";
 import EmailStep from "@/components/molecules/EmailStepProps";
 import {showToast} from "@/utils/alert";
-import axios from "@/lib/axios";
 import CodeStep from "@/components/molecules/CodeStep";
 import ResetPasswordStep from "@/components/molecules/ResetPasswordStep";
 import {useNavigate} from "react-router-dom";
 import {TOAST_TYPES} from "@/constants/alerts";
 import {MESSAGES} from "@/constants/messages";
+import {authService} from "@/services/auth.service";
+import {userService} from "@/services/user.service";
 
 const steps = ["Confirmación de correo", "Verificación", "Resetear contraseña"];
 
@@ -27,8 +28,8 @@ const ResetPasswordForm = () => {
                 return;
             }
             try {
-                const response = await axios.post("/auth/send-reset-code", { email });
-                showToast(TOAST_TYPES.SUCCESS, response.data.message || "Código enviado al correo");
+                const data = await authService.sendResetCode(email);
+                showToast(TOAST_TYPES.SUCCESS, data.message || "Código enviado al correo");
                 setCurrentStep(1);
             } catch (error: any) {
                 showToast(TOAST_TYPES.ERROR, error.response?.data?.error || "Hubo un error al enviar el correo");
@@ -39,8 +40,8 @@ const ResetPasswordForm = () => {
                 return;
             }
             try {
-                const response = await axios.post("/auth/validate-reset-code", { email , code });
-                showToast(TOAST_TYPES.SUCCESS, response.data.message || "Código verificado");
+                const data = await authService.validateResetCode(email,code);
+                showToast(TOAST_TYPES.SUCCESS, data.message || "Código verificado");
                 setCurrentStep(2);
             } catch (error: any) {
                 showToast(TOAST_TYPES.ERROR, error.response?.data?.error || "Hubo un error al enviar el correo");
@@ -56,8 +57,8 @@ const ResetPasswordForm = () => {
             return;
         }
         try{
-            const response = await axios.post("/users/reset-password", { email, password });
-            showToast(TOAST_TYPES.SUCCESS, response.data.message || "Contraseña reseteada");
+            const data = await userService.resetUserPassword(email, password);
+            showToast(TOAST_TYPES.SUCCESS, data.message || "Contraseña reseteada");
             navigate('/');
         }catch(error:any){
             showToast(TOAST_TYPES.ERROR, error.response?.data?.error || "Hubo un error al enviar el correo");

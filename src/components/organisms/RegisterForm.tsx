@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import TextField from "@/components/atoms/TextField";
-import axios from "@/lib/axios";
 import ButtonPrimay from "@/components/atoms/Button";
 import {showToast} from "@/utils/alert";
 import {TOAST_TYPES} from "@/constants/alerts";
-
+import {userService} from "@/services/user.service";
+import {IUser} from "@/types/user.interface";
 const RegisterForm = () => {
-    const [form, setForm] = useState({
+    const [form, setForm] = useState<IUser>({
         name: '',
         email: '',
         password: '',
@@ -26,8 +26,8 @@ const RegisterForm = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await axios.post("/users/", form);
-            showToast(TOAST_TYPES.SUCCESS, response.data.message);
+            const data = await userService.createUser(form);
+            showToast(TOAST_TYPES.SUCCESS, data.message);
             clearForm();
             setTimeout(() => {
                 navigate('/');
