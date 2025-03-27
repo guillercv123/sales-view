@@ -12,7 +12,7 @@ import {useNavigate} from "react-router-dom";
 const steps = ["Confirmación de correo", "Verificación", "Resetear contraseña"];
 
 const ResetPasswordForm = () => {
-    const [currentStep, setCurrentStep] = useState(2);
+    const [currentStep, setCurrentStep] = useState(0);
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [code, setCode]= useState("");
