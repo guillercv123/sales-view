@@ -6,13 +6,14 @@ import {showToast} from "@/utils/alert";
 import {TOAST_TYPES} from "@/constants/alerts";
 import {authService} from "@/services/auth.service";
 import {LoginInterface} from "@/types/login.interface";
+import {useNavigate} from "react-router-dom";
 
 export default function LoginForm() {
     const [form, setForm] = useState<LoginInterface>({
         name: '',
         password: '',
     });
-
+    const navigate = useNavigate();
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
@@ -21,6 +22,7 @@ export default function LoginForm() {
         try {
             const data = await authService.loginUser(form);
             showToast(TOAST_TYPES.SUCCESS, data.message);
+            navigate('/panel');
         } catch (err:any) {
             const message = err?.response?.data?.error || 'Error al registrar usuario';
             showToast(TOAST_TYPES.ERROR, message);

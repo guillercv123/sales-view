@@ -12,6 +12,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
+      'tailwindcss/version.js': path.resolve(__dirname, 'node_modules/tailwindcss/package.json'),
+
     },
   },
 })
