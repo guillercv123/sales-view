@@ -16,7 +16,7 @@ const RememberPassword = () => {
                 </Label>
             </div>
             <Link
-                to="/"
+                to="/resetPassword"
                 className="text-sm font-medium text-primary hover:underline transition-all"
             >
                 ¿Olvidaste tu contraseña?
