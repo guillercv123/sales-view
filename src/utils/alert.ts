@@ -8,7 +8,7 @@ export const showToast = (type: ToastType, message: string, timer: number = 3000
         toast: true,
         position: 'top-end',
         icon: type,
-        title: message,
+        text: message,
         showConfirmButton: false,
         timer,
         timerProgressBar: true,
