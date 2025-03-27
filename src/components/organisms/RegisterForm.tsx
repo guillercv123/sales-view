@@ -4,6 +4,7 @@ import TextField from "@/components/atoms/TextField";
 import axios from "@/lib/axios";
 import ButtonPrimay from "@/components/atoms/Button";
 import {showToast} from "@/utils/alert";
+import {TOAST_TYPES} from "@/constants/alerts";
 
 const RegisterForm = () => {
     const [form, setForm] = useState({
@@ -26,14 +27,14 @@ const RegisterForm = () => {
         e.preventDefault();
         try {
             const response = await axios.post("/users/", form);
-            showToast('success', response.data.message);
+            showToast(TOAST_TYPES.SUCCESS, response.data.message);
             clearForm();
             setTimeout(() => {
                 navigate('/');
-            }, 1500); // pequeño delay para que el toast se muestre
+            }, 1500);
         } catch (err:any) {
             const message = err?.response?.data?.error || 'Error al registrar usuario';
-            showToast('error', message);
+            showToast(TOAST_TYPES.ERROR, message);
         }
     };
 

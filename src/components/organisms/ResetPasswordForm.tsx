@@ -8,6 +8,8 @@ import axios from "@/lib/axios";
 import CodeStep from "@/components/molecules/CodeStep";
 import ResetPasswordStep from "@/components/molecules/ResetPasswordStep";
 import {useNavigate} from "react-router-dom";
+import {TOAST_TYPES} from "@/constants/alerts";
+import {MESSAGES} from "@/constants/messages";
 
 const steps = ["Confirmación de correo", "Verificación", "Resetear contraseña"];
 
@@ -21,27 +23,27 @@ const ResetPasswordForm = () => {
     const next = async () => {
         if (currentStep === 0) {
             if (!email) {
-                showToast("warning", "El correo es requerido");
+                showToast(TOAST_TYPES.WARNING, MESSAGES.EMAIL_REQUIRED);
                 return;
             }
             try {
                 const response = await axios.post("/auth/send-reset-code", { email });
-                showToast("success", response.data.message || "Código enviado al correo");
+                showToast(TOAST_TYPES.SUCCESS, response.data.message || "Código enviado al correo");
                 setCurrentStep(1);
             } catch (error: any) {
-                showToast("error", error.response?.data?.error || "Hubo un error al enviar el correo");
+                showToast(TOAST_TYPES.ERROR, error.response?.data?.error || "Hubo un error al enviar el correo");
             }
         } else if(currentStep === 1){
             if (!code) {
-                showToast("warning", "Ingrese el código");
+                showToast(TOAST_TYPES.WARNING, MESSAGES.CODE_REQUIRED);
                 return;
             }
             try {
                 const response = await axios.post("/auth/validate-reset-code", { email , code });
-                showToast("success", response.data.message || "Código verificado");
+                showToast(TOAST_TYPES.SUCCESS, response.data.message || "Código verificado");
                 setCurrentStep(2);
             } catch (error: any) {
-                showToast("error", error.response?.data?.error || "Hubo un error al enviar el correo");
+                showToast(TOAST_TYPES.ERROR, error.response?.data?.error || "Hubo un error al enviar el correo");
             }
         } else {
             setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
@@ -50,15 +52,15 @@ const ResetPasswordForm = () => {
     const back = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
     const resetPassword = async () => {
         if(password !== passwordConfirm){
-            showToast("warning", "Las contraseñas ingresadas no son iguales. Verifícalas e intentá nuevamente.\"");
+            showToast(TOAST_TYPES.WARNING, MESSAGES.PASSWORD_MISMATCH);
             return;
         }
         try{
             const response = await axios.post("/users/reset-password", { email, password });
-            showToast("success", response.data.message || "Contraseña reseteada");
+            showToast(TOAST_TYPES.SUCCESS, response.data.message || "Contraseña reseteada");
             navigate('/');
         }catch(error:any){
-            showToast("error", error.response?.data?.error || "Hubo un error al enviar el correo");
+            showToast(TOAST_TYPES.ERROR, error.response?.data?.error || "Hubo un error al enviar el correo");
         }
     };
     return (

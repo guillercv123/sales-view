@@ -4,6 +4,7 @@ import TextField from "@/components/atoms/TextField";
 import RememberPassword from "@/components/molecules/RememberPassword";
 import ButtonPrimay from "../atoms/Button";
 import {showToast} from "@/utils/alert";
+import {TOAST_TYPES} from "@/constants/alerts";
 
 export default function LoginForm() {
     const [form, setForm] = useState({
@@ -18,10 +19,10 @@ export default function LoginForm() {
         event.preventDefault();
         try {
             const response = await axios.post("/login/", form);
-            showToast('success', response.data.message);
+            showToast(TOAST_TYPES.SUCCESS, response.data.message);
         } catch (err:any) {
             const message = err?.response?.data?.error || 'Error al registrar usuario';
-            showToast('error', message);
+            showToast(TOAST_TYPES.ERROR, message);
         }
     }
 
