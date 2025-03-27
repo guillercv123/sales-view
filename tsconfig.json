@@ -4,6 +4,7 @@
     "paths": {
       "@/*": ["src/*"]
     },
+    "types": ["vite/client"],
     "target": "es2016",
     "module": "esnext",
     "moduleResolution": "node",
