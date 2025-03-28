@@ -1,13 +1,13 @@
 import React from "react";
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 interface PrimaryButtonProps {
-    children: React.ReactNode,
-    type?: "button" | "submit" | "reset",
-    onClick?: () => void,
-    className?: string,
-    bgColor?: string,
-    variant?: string
+    children: React.ReactNode;
+    type?: "button" | "submit" | "reset";
+    onClick?: () => void;
+    className?: string;
+    bgColor?: string;
+    variant?: string;
 }
 
 const ButtonPrimay = ({
@@ -15,14 +15,18 @@ const ButtonPrimay = ({
                           type = "button",
                           onClick,
                           className = "",
-                          bgColor = "",
+                          bgColor = "bg-primary",
                           variant
                       }: PrimaryButtonProps) => {
     return (
+
         <Button
+            variant="outline"
             type={type}
             onClick={onClick}
-            className={`w-full ${bgColor} text-white rounded-xl ${className}`}
+            className={`
+                w-full
+            `}
         >
             {children}
         </Button>

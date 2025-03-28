@@ -29,18 +29,20 @@ import {
     useSidebar,
 } from "@/components/ui/sidebar"
 import React from "react"
-
-export function NavUser({
-                            user,
-                        }: {
-    user: {
-        name: string
-        email: string
-        avatar: string
-    }
-}) {
+import {useNavigate} from "react-router-dom";
+export function NavUser({user}: Readonly<{
+                user: {
+                    name: string
+                    email: string
+                    avatar: string
+                } }>)
+{
     const { isMobile } = useSidebar()
-
+    const navigate = useNavigate();
+    const logout = () => {
+        navigate('/');
+        window.location.reload();
+    };
     return (
         <SidebarMenu>
             <SidebarMenuItem>
@@ -102,9 +104,9 @@ export function NavUser({
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>
+                        <DropdownMenuItem onClick={logout}>
                             <LogOut />
-                            Log out
+                            Cerrar sesión
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

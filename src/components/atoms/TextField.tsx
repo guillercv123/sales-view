@@ -6,26 +6,39 @@ interface Props {
     id: string;
     label: string;
     type?: string;
+    autoComplete?: string;
     name: string;
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     required?: boolean;
 }
 
-const TextField = ({ id, label, type = "text", name, value, onChange, required }: Props) => {
+const TextField = ({
+                       id,
+                       label,
+                       type = "text",
+                       autoComplete,
+                       name,
+                       value,
+                       onChange,
+                       required
+                   }: Props) => {
     return (
-        <div className="mb-4">
+        <div className="mb-4 text-gray-700 dark:text-gray-200">
             <div className="mb-2 block">
-                <Label htmlFor={id}>{label}</Label>
+                <Label htmlFor={id} className="text-sm text-gray-700 dark:text-gray-200">
+                    {label}
+                </Label>
             </div>
             <Input
                 id={id}
                 name={name}
                 type={type}
+                autoComplete={autoComplete}
                 value={value}
                 onChange={onChange}
                 required={required}
-                className="form-control form-rounded-xl"
+                className="form-control form-rounded-xl bg-white text-black border-gray-300 dark:bg-gray-800 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary"
             />
         </div>
     );

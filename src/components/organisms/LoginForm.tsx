@@ -22,9 +22,13 @@ export default function LoginForm() {
         try {
             const data = await authService.loginUser(form);
             showToast(TOAST_TYPES.SUCCESS, data.message);
+            setForm({
+                name: '',
+                password: '',
+            });
             navigate('/panel');
         } catch (err:any) {
-            const message = err?.response?.data?.error || 'Error al registrar usuario';
+            const message = err?.message || 'Error al registrar usuario';
             showToast(TOAST_TYPES.ERROR, message);
         }
     }
@@ -36,6 +40,7 @@ export default function LoginForm() {
                     label="Nombre"
                     name="name"
                     required
+                    autoComplete="username"
                     value={form.name}
                     onChange={handleChange}
                 />
@@ -43,6 +48,7 @@ export default function LoginForm() {
                     id="password"
                     label="Contraseña"
                     type="password"
+                    autoComplete="password"
                     name="password"
                     required
                     value={form.password}

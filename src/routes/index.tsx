@@ -12,7 +12,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <BlankLayout />,
         children: [
-            { path: '/', element: <LoginPage /> }, // default route
+            { index: true, element: <LoginPage /> }, // default route
             { path: "register", element: <RegisterPage /> },
             { path: "resetPassword", element: <ResetPasswordPage /> },
         ],

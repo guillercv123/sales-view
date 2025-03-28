@@ -26,8 +26,7 @@ instance.interceptors.response.use(
     },
     (error) => {
         loadingManager.set(false);
-        showToast(TOAST_TYPES.ERROR, error.response?.data?.error || "Error de conexión");
-        return Promise.reject(new Error(error))
+        return Promise.reject(new Error(error.response?.data?.error))
     }
 );
 

@@ -22,7 +22,6 @@ import {
 } from "@/components/ui/sidebar"
 import {NavUser} from "@/components/atoms/navUser";
 import {TeamSwitcher} from "@/components/atoms/TeamSwitcher";
-import {NavProjects} from "@/components/atoms/NavProjects";
 
 // This is sample data.
 const data = {
@@ -162,7 +161,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarHeader>
             <SidebarContent>
                 <NavMain items={data.navMain} />
-                {/*<NavProjects projects={data.projects} />*/}
             </SidebarContent>
             <SidebarFooter>
                 <NavUser user={data.user} />
