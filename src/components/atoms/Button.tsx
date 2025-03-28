@@ -1,22 +1,23 @@
-// src/components/atoms/PrimaryButton.tsx
 import React from "react";
-import { Button } from "@/components/ui/button";
+import {Button} from "@/components/ui/button";
 
 interface PrimaryButtonProps {
-    children: React.ReactNode;
-    type?: "button" | "submit" | "reset";
-    onClick?: () => void;
-    className?: string;
-    bgColor?: string;
+    children: React.ReactNode,
+    type?: "button" | "submit" | "reset",
+    onClick?: () => void,
+    className?: string,
+    bgColor?: string,
+    variant?: string
 }
 
 const ButtonPrimay = ({
-                           children,
-                           type = "button",
-                           onClick,
-                           className = "",
-                           bgColor=""
-                       }: PrimaryButtonProps) => {
+                          children,
+                          type = "button",
+                          onClick,
+                          className = "",
+                          bgColor = "",
+                          variant
+                      }: PrimaryButtonProps) => {
     return (
         <Button
             type={type}

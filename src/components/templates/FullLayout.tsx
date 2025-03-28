@@ -1,32 +1,53 @@
 
 import React from "react"
 import { Outlet } from "react-router-dom"
-import { AppSidebar } from "@/components/atoms/sidebar"
-import {SidebarProvider} from "@/components/ui/sidebar";
-import { Header } from "../atoms/header";
+import {AppSidebar}  from "@/components/atoms/sidebar"
+import {SidebarInset, SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar";
+import {Separator} from "@/components/ui/separator";
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator
+} from "../ui/breadcrumb";
 
 const FullLayout = () => {
     const [open, setOpen] = React.useState(true)
     return (
-        <SidebarProvider open={open} onOpenChange={setOpen}>
-        <div className="flex h-screen w-full overflow-hidden dark:bg-darkgray">
-            {/* Sidebar */}
-            <aside className="border-r border-border dark:bg-darkgray">
-                <AppSidebar />
-            </aside>
-
-            {/* Main */}
-            <div className="flex flex-col flex-1 h-full overflow-hidden">
-                <header className="sticky top-0 z-50 w-full border-b dark:bg-darkgray">
-                    <Header />
-                </header>
-                <main className="flex-1 overflow-y-auto bg-lightgray dark:bg-dark">
-                    <div className="container py-6">
-                        <Outlet />
+        <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset>
+                <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+                    <div className="flex items-center gap-2 px-4">
+                        <SidebarTrigger className="-ml-1" />
+                        <Separator orientation="vertical" className="mr-2 h-4" />
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                <BreadcrumbItem className="hidden md:block">
+                                    <BreadcrumbLink href="#">
+                                        Building Your Application
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator className="hidden md:block" />
+                                <BreadcrumbItem>
+                                    <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                                </BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumb>
                     </div>
-                </main>
-            </div>
-        </div>
+                </header>
+                <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+                    <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+                        sdasd
+                        <div className="aspect-video rounded-xl bg-muted/50" />
+                        <div className="aspect-video rounded-xl bg-muted/50" />
+                        <div className="aspect-video rounded-xl bg-muted/50" />
+                    </div>
+                    <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+                </div>
+            </SidebarInset>
         </SidebarProvider>
     )
 }
