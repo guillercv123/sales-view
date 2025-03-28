@@ -1,19 +1,32 @@
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import { toast } from "sonner";
 
-type ToastType = 'success' | 'error' | 'info' | 'warning';
+type ToastType = "success" | "error" | "info" | "warning";
 
+/**
+ * Muestra un toast usando sonner con tipo, mensaje y duración.
+ * @param type - Tipo de mensaje ('success' | 'error' | 'info' | 'warning')
+ * @param message - Mensaje principal
+ * @param timer - Duración del toast en milisegundos (default: 3000)
+ */
 export const showToast = (type: ToastType, message: string, timer: number = 3000) => {
-    Swal.fire({
-        toast: true,
-        position: 'top-end',
-        icon: type,
-        text: message,
-        showConfirmButton: false,
-        timer,
-        timerProgressBar: true,
-        customClass: {
-            popup: 'rounded-xl shadow-md text-sm',
-        }
-    });
+    const options = {
+        duration: timer,
+    };
+
+    switch (type) {
+        case "success":
+            toast.success(message, options);
+            break;
+        case "error":
+            toast.error(message, options);
+            break;
+        case "info":
+            toast.info(message, options);
+            break;
+        case "warning":
+            toast.warning(message, options);
+            break;
+        default:
+            toast(message, options);
+    }
 };

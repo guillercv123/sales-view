@@ -1,6 +1,4 @@
-
 import React from "react"
-import { Outlet } from "react-router-dom"
 import {AppSidebar}  from "@/components/atoms/sidebar"
 import {SidebarInset, SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar";
 import {Separator} from "@/components/ui/separator";
@@ -14,7 +12,6 @@ import {
 } from "../ui/breadcrumb";
 
 const FullLayout = () => {
-    const [open, setOpen] = React.useState(true)
     return (
         <SidebarProvider>
             <AppSidebar />
