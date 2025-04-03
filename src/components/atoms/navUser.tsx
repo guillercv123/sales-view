@@ -41,7 +41,6 @@ export function NavUser({user}: Readonly<{
     const navigate = useNavigate();
     const logout = () => {
         navigate('/');
-        window.location.reload();
     };
     return (
         <SidebarMenu>

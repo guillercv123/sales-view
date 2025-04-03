@@ -26,7 +26,7 @@ const TextField = ({
     return (
         <div className="mb-4 text-gray-700 dark:text-gray-200">
             <div className="mb-2 block">
-                <Label htmlFor={id} className="text-sm text-gray-700 dark:text-gray-200">
+                <Label htmlFor={id}>
                     {label}
                 </Label>
             </div>
@@ -38,8 +38,7 @@ const TextField = ({
                 value={value}
                 onChange={onChange}
                 required={required}
-                className="form-control form-rounded-xl bg-white text-black border-gray-300 dark:bg-gray-800 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary"
-            />
+                />
         </div>
     );
 };
