@@ -37,7 +37,7 @@ export default function LoginForm() {
             <form onSubmit={handleSubmit} >
                 <TextField
                     id="name"
-                    label="Nombre"
+                    label="Nombre de Usuario"
                     name="name"
                     required
                     autoComplete="username"

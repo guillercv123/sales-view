@@ -46,7 +46,7 @@ const RegisterForm: React.FC = () => {
             <form onSubmit={handleSubmit}>
                 <TextField
                     id="name"
-                    label="Nombre"
+                    label="Nombre de Usuario"
                     name="name"
                     required
                     autoComplete="username"

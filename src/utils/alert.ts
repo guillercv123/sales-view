@@ -11,6 +11,7 @@ type ToastType = "success" | "error" | "info" | "warning";
 export const showToast = (type: ToastType, message: string, timer: number = 3000) => {
     const options = {
         duration: timer,
+        dismissible: true,
     };
 
     switch (type) {
