@@ -10,8 +10,11 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator
 } from "../ui/breadcrumb";
+import {Outlet, useLocation} from "react-router";
 
 const FullLayout = () => {
+    const location = useLocation();
+ //   const breadcrumb = getBreadcrumbData(location.pathname);
     return (
         <SidebarProvider>
             <AppSidebar />
@@ -36,13 +39,9 @@ const FullLayout = () => {
                     </div>
                 </header>
                 <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-                    <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                        sdasd
-                        <div className="aspect-video rounded-xl bg-muted/50" />
-                        <div className="aspect-video rounded-xl bg-muted/50" />
-                        <div className="aspect-video rounded-xl bg-muted/50" />
+                    <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min">
+                        <Outlet />
                     </div>
-                    <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
                 </div>
             </SidebarInset>
         </SidebarProvider>

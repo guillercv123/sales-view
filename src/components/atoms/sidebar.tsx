@@ -8,8 +8,7 @@ import {
     GalleryVerticalEnd,
     Map,
     PieChart,
-    Settings2,
-    SquareTerminal,
+    Settings2, SquareMenu
 } from "lucide-react"
 
 import { NavMain } from "@/components/atoms/navMain"
@@ -49,23 +48,15 @@ const data = {
     ],
     navMain: [
         {
-            title: "Playground",
-            url: "#",
-            icon: SquareTerminal,
+            title: "Panel",
+            url: "",
+            icon: SquareMenu,
             isActive: true,
             items: [
                 {
-                    title: "History",
-                    url: "#",
-                },
-                {
-                    title: "Starred",
-                    url: "#",
-                },
-                {
-                    title: "Settings",
-                    url: "#",
-                },
+                    title: "Clientes",
+                    url: "/panel/cliente",
+                }
             ],
         },
         {
