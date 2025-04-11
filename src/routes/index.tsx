@@ -6,8 +6,8 @@ import LoginPage from "@/components/pages/LoginPage";
 import RegisterPage from "@/components/pages/RegisterPage";
 import ResetPasswordPage from "@/components/pages/ResetPasswordPage";
 import FullLayout from "@/components/templates/FullLayout";
-import ClientePage from "@/components/pages/ClientePage";
-import Dashboard from "@/components/pages/DashboardPage";
+import ClientsPage from "@/components/pages/clients/ClientsPage";
+import NewClientPage from "@/components/pages/clients/NewClientPage";
 
 const router = createBrowserRouter([
     {
@@ -24,7 +24,8 @@ const router = createBrowserRouter([
         element: <FullLayout />,
         children: [
          //   { index: true, element: <Dashboard /> }
-            { path: "cliente", element: <ClientePage /> },
+            { path: "clients", element: <ClientsPage /> },
+            { path: "nuevoCliente", element: <NewClientPage /> },
         ],
     },
 ]);

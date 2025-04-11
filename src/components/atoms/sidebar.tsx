@@ -55,7 +55,7 @@ const data = {
             items: [
                 {
                     title: "Clientes",
-                    url: "/panel/cliente",
+                    url: "/panel/clients",
                 }
             ],
         },
