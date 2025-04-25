@@ -10,7 +10,7 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator
 } from "../ui/breadcrumb";
-import {Outlet, useLocation} from "react-router";
+import {Link, Outlet, useLocation} from "react-router";
 
 const routeTitles = {
     'panel': 'Panel',
@@ -83,7 +83,11 @@ const FullLayout = () => {
                                             {item.isLast ? (
                                                 <BreadcrumbPage>{item.label}</BreadcrumbPage>
                                             ) : (
-                                                <BreadcrumbLink href={item.path}>{item.label}</BreadcrumbLink>
+                                                <BreadcrumbLink>
+                                                    <Link to={item.path}>
+                                                        <span>  {item.label}</span>
+                                                    </Link>
+                                                </BreadcrumbLink>
                                             )}
                                         </BreadcrumbItem>
                                     </React.Fragment>

@@ -1,9 +1,9 @@
 import React from "react";
-import NewClientForm from "@/components/organisms/cliente/NewClientForm";
+import NewClientForm from "@/components/organisms/clients/NewClientForm";
 
 const NewClientPage = () => {
     return (
-        <div className="aspect-video rounded-xl bg-muted/50">
+        <div className="rounded-xl bg-muted/50">
             <NewClientForm />
         </div>
     )

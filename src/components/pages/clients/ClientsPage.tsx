@@ -1,5 +1,5 @@
 import React from "react";
-import ListClientForm from "@/components/organisms/cliente/ListClientForm";
+import ListClientForm from "@/components/organisms/clients/ListClientForm";
 
 const ClientsPage = ()=> {
     return (
