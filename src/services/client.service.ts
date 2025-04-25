@@ -6,5 +6,9 @@ export const clientService = {
         const response = await axios.post("/client/", form);
         return response.data;
     },
+    listClient: async () => {
+        const response = await axios.get("/client/");
+        return response.data;
+    },
 }
 

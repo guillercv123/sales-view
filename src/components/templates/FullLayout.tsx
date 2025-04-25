@@ -83,7 +83,7 @@ const FullLayout = () => {
                                             {item.isLast ? (
                                                 <BreadcrumbPage>{item.label}</BreadcrumbPage>
                                             ) : (
-                                                <BreadcrumbLink>
+                                                <BreadcrumbLink asChild>
                                                     <Link to={item.path}>
                                                         <span>  {item.label}</span>
                                                     </Link>

@@ -1,8 +1,8 @@
 export interface IPersistence{
-    createUser?: string;
-    createDate?: Date;
+    createUser: string;
+    createDate: string| Date;
     updateUser?: string;
-    updateDate?: Date;
+    updateDate?: string;
     deleteUser?: String;
-    deleteDate?: Date;
+    deleteDate?: string;
 }

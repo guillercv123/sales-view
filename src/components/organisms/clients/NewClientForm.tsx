@@ -17,7 +17,7 @@ import {clientService} from "@/services/client.service";
 import {showToast} from "@/utils/alert";
 import {TOAST_TYPES} from "@/constants/alerts";
 import {IClienteReq} from "@/types/client.interface";
-import {now} from "lodash"; // Asumiendo que tienes componentes de tooltip de shadcn/ui
+import {useNavigate} from "react-router-dom";
 
 const NewClientForm = () => {
     const formSchema = z.object({
@@ -43,7 +43,7 @@ const NewClientForm = () => {
             message: "Ingrese un correo electrónico válido.",
         }),
     })
-
+    const navigate = useNavigate();
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -63,6 +63,7 @@ const NewClientForm = () => {
             surname: values.surname,
             email: values.email,
             phone: values.phone,
+            numberDocument: values.numberDocument,
             idTypeDocument: Number(values.typeDocument),
             idGenero: Number(values.genero),
             // @ts-ignore
@@ -71,6 +72,7 @@ const NewClientForm = () => {
         }
         const data = await clientService.createClient(form);
         showToast(TOAST_TYPES.SUCCESS, data.message);
+        navigate('/panel/clients');
     }
 
     // Componente para mostrar errores en tooltip
