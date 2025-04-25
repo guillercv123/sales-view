@@ -12,7 +12,12 @@ import {
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
-} from "@/components/ui/tooltip"; // Asumiendo que tienes componentes de tooltip de shadcn/ui
+} from "@/components/ui/tooltip";
+import {clientService} from "@/services/client.service";
+import {showToast} from "@/utils/alert";
+import {TOAST_TYPES} from "@/constants/alerts";
+import {IClienteReq} from "@/types/client.interface";
+import {now} from "lodash"; // Asumiendo que tienes componentes de tooltip de shadcn/ui
 
 const NewClientForm = () => {
     const formSchema = z.object({
@@ -52,8 +57,20 @@ const NewClientForm = () => {
         },
     })
 
-    const onSubmit = (values:any) => {
-        console.log('✅ Formulario enviado:', values)
+    const onSubmit = async (values:any) => {
+        const form: IClienteReq = {
+            fullName: values.fullName,
+            surname: values.surname,
+            email: values.email,
+            phone: values.phone,
+            idTypeDocument: Number(values.typeDocument),
+            idGenero: Number(values.genero),
+            // @ts-ignore
+            createUser: JSON.parse(localStorage.getItem("user")),
+            createDate: new Date(),
+        }
+        const data = await clientService.createClient(form);
+        showToast(TOAST_TYPES.SUCCESS, data.message);
     }
 
     // Componente para mostrar errores en tooltip
@@ -232,7 +249,7 @@ const NewClientForm = () => {
                         )}
                     />
                     <div className="w-full flex justify-start mt-2">
-                        <Button type="submit">Enviar</Button>
+                        <Button type="submit">Guardar</Button>
                     </div>
                 </form>
             </Form>

@@ -26,6 +26,7 @@ export default function LoginForm() {
                 name: '',
                 password: '',
             });
+            localStorage.setItem("user", JSON.stringify(form.name));
             navigate('/panel');
         } catch (err:any) {
             const message = err?.message || 'Error al registrar usuario';
