@@ -102,7 +102,7 @@ const data = {
             ],
         },
         {
-            title: "Settings",
+            title: "Configuración",
             url: "#",
             icon: Settings2,
             items: [

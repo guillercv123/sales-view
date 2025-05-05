@@ -1,5 +1,5 @@
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     Table,
     TableBody,
@@ -10,33 +10,58 @@ import {
 import {IDocumentType} from "@/types/document-type.interface";
 import {DocumentTypeRow} from "@/components/molecules/DocumentTypeRow";
 import {documentTypeService} from "@/services/document-type.service";
-const mockData: IDocumentType[] = [
-    { id: 1, description: "DNI", active: true },
-    { id: 2, description: "RUC", active: false },
-];
 
+// Create a global state to persist data across tab changes
+let documentTypesData: {
+    items: IDocumentType[];
+    isLoaded: boolean;
+    isLoading: boolean;
+} = {
+    items: [],
+    isLoaded: false,
+    isLoading: false
+};
 
-const DocumentTypeForm  = () => {
-    const didFetch = useRef(false);
-    const [items, setItems] = React.useState<IDocumentType[]>(mockData);
+const DocumentTypeForm = () => {
+    const [localState, setLocalState] = useState(documentTypesData);
+
+    const fetchData = async () => {
+        if (documentTypesData.isLoading || documentTypesData.isLoaded) {
+            return;
+        }
+
+        documentTypesData = { ...documentTypesData, isLoading: true };
+        setLocalState({ ...documentTypesData });
+
+        try {
+            const { resp } = await documentTypeService.findAll();
+            documentTypesData = {
+                items: resp,
+                isLoaded: true,
+                isLoading: false
+            };
+            setLocalState({ ...documentTypesData });
+        } catch (error) {
+            console.error("Error fetching document types:", error);
+            documentTypesData = { ...documentTypesData, isLoading: false };
+            setLocalState({ ...documentTypesData });
+        }
+    };
+
     const handleToggle = (id: number, value: boolean) => {
-        setItems((prev) =>
-            prev.map((item) =>
+        documentTypesData = {
+            ...documentTypesData,
+            items: documentTypesData.items.map(item =>
                 item.id === id ? { ...item, active: value } : item
             )
-        );
-    };
-    const getListDocumentType = async () => {
-
-            const {resp} = await documentTypeService.findAll();
-            setItems(resp);
-
+        };
+        setLocalState({ ...documentTypesData });
     };
 
     useEffect(() => {
-        if (didFetch.current) return;
-        didFetch.current = true;
-        getListDocumentType();
+        if (!documentTypesData.isLoaded && !documentTypesData.isLoading) {
+            fetchData();
+        }
     }, []);
 
     return (
@@ -48,26 +73,30 @@ const DocumentTypeForm  = () => {
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Descripción</TableHead>
-                            <TableHead className="text-right">Estado</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {items.map((item) => (
-                            <DocumentTypeRow
-                                key={item.id}
-                                data={item}
-                                onToggle={handleToggle}
-                            />
-                        ))}
-                    </TableBody>
-                </Table>
+                {localState.isLoading ? (
+                    <div>Cargando tipos de documentos...</div>
+                ) : (
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Descripción</TableHead>
+                                <TableHead className="text-right">Estado</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {localState.items.map((item) => (
+                                <DocumentTypeRow
+                                    key={item.id}
+                                    data={item}
+                                    onToggle={handleToggle}
+                                />
+                            ))}
+                        </TableBody>
+                    </Table>
+                )}
             </CardContent>
         </Card>
-    )
-}
+    );
+};
 
 export default DocumentTypeForm;

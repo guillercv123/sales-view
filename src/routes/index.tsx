@@ -8,7 +8,7 @@ import ResetPasswordPage from "@/components/pages/ResetPasswordPage";
 import FullLayout from "@/components/templates/FullLayout";
 import ClientsPage from "@/components/pages/clients/ClientsPage";
 import NewClientPage from "@/components/pages/clients/NewClientPage";
-import SettingPage from "@/components/pages/settings/SettingPage";
+import GeneralPage from "@/components/pages/settings/GeneralPage";
 
 const router = createBrowserRouter([
     {
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
          //   { index: true, element: <Dashboard /> }
             { path: "clients", element: <ClientsPage /> },
             { path: "nuevoCliente", element: <NewClientPage /> },
-            { path: "general", element: <SettingPage /> },
+            { path: "general", element: <GeneralPage /> },
         ],
     },
 ]);

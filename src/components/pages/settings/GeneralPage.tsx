@@ -13,7 +13,7 @@ const tabsConfig = [
     { value: 'gender', label: 'Genero', Component: GeneroForm },
 ];
 
-const SettingPage = ()=>{
+const GeneralPage = ()=>{
     const gridCols = `grid-cols-${tabsConfig.length}`;
     return (
         <Tabs defaultValue={tabsConfig[0].value} className="w-full">
@@ -32,4 +32,4 @@ const SettingPage = ()=>{
     )
 }
 
-export default SettingPage;
+export default GeneralPage;
