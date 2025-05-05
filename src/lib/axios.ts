@@ -1,7 +1,5 @@
 import axios from "axios";
 import { loadingManager } from "./loadingManager";
-import {showToast} from "@/utils/alert";
-import {TOAST_TYPES} from "@/constants/alerts";
 const instance = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
     headers: {

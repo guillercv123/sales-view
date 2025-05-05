@@ -6,6 +6,7 @@ import {IClientResp} from "@/types/client.interface";
 import {AgGridReact} from "ag-grid-react";
 import {colorSchemeDarkWarm, colorSchemeLightWarm, themeQuartz} from "ag-grid-community";
 import ButtonPrimay from "@/components/atoms/Button";
+import {UserPlus} from "lucide-react";
 
 const themeLightWarm = themeQuartz.withPart(colorSchemeLightWarm);
 const themeDarkWarm = themeQuartz.withPart(colorSchemeDarkWarm);
@@ -54,55 +55,18 @@ const ListClientForm= () => {
         didFetch.current = true;
         getListClients();
     }, []);
-    const filterParams = {
-        comparator: (filterLocalDateAtMidnight: any, cellValue: any) => {
-            const dateAsString = cellValue;
-            if (dateAsString == null) return -1;
-            const dateParts = dateAsString.split("/");
-            const cellDate = new Date(
-                Number(dateParts[2]),
-                Number(dateParts[1]) - 1,
-                Number(dateParts[0]),
-            );
-            if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
-                return 0;
-            }
-            if (cellDate < filterLocalDateAtMidnight) {
-                return -1;
-            }
-            if (cellDate > filterLocalDateAtMidnight) {
-                return 1;
-            }
-            return 0;
-        },
-    };
     const [colDefs, setColDefs] = useState([
+        { field: "descriptionTypeDocument", headerName: "Tipo de Documento"},
+        { field: "numberDocument", headerName: "Número Documento" },
         { field: "fullName", headerName: "Nombres"},
         { field: "surname", headerName: "Apellidos" },
         { field: "email", headerName: "Correo" },
-        { field: "descriptionTypeDocument", headerName: "Tipo de Documento" },
-        { field: "numberDocument", headerName: "Número Documento" },
         { field: "descriptionGenero", headerName: "Género" },
-        { field: "createUser", headerName: "Usuario",},
-        { field: "createDate", headerName: "Fecha de Registro" ,
-            filter: 'agDateColumnFilter',
-            filterParams: filterParams,
-            valueFormatter: (params:any) => {
-                if (!params.value) return '';
-                const date = new Date(params.value);
-                return date.toLocaleDateString('es-ES', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                });
-            }
-        },
         {
             colId: "actions",
-            headerName: "Actions",
+            headerName: "",
+            filter: false,
+            sortable: false,
             cellRenderer: ButtonPrimay,
         },
     ]);
@@ -110,6 +74,7 @@ const ListClientForm= () => {
         return {
             flex: 1,
             minWidth: 150,
+            floatingFilter: false,
             filter: "agTextColumnFilter",
             suppressHeaderMenuButton: true,
             suppressHeaderContextMenu: true,
@@ -118,8 +83,12 @@ const ListClientForm= () => {
 
     return (
         <div>
-            <Button className="py-4 mb-4" onClick={routerNuevo}>Nuevo cliente</Button>
-
+            <div className={"flex justify-between"}>
+                <div className={"text-2xl py-4"}>
+                    <h2 className={"font-normal"}>Lista de clientes</h2>
+                </div>
+                <Button className="mt-5" onClick={routerNuevo}><UserPlus />Nuevo</Button>
+            </div>
                 {error && <p className="text-sm text-red-500">{error}</p>}
             <div  className={isDark ? "ag-theme-quartz-dark" : "ag-theme-quartz"} style={{ height: 350, width: '100%' }}>
                     <AgGridReact
